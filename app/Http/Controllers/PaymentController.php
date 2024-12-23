@@ -120,7 +120,7 @@ public function handleWebhook(Request $request)
         // Invalid signature
         return response('Invalid signature', 400);
     }
-    Log::info($event->type);
+
     if($event->type == 'checkout.session.completed')
     {
         $response = array();
@@ -130,13 +130,13 @@ public function handleWebhook(Request $request)
         $response["amount"]  = $event->data->object->amount_total/100;
         $response["currency"]  = $event->data->object->currency;
         $response["type"]  = $event["type"];
-        Log::info($response);
        
     }else{
         echo  "Invalid Stripe checkout Webhook.";   
         die(); 
        
     }
+    Log::info($response);
     return response('Webhook handled', 200);
 }
 
